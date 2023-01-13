@@ -14,15 +14,16 @@ state_list = states.state.to_list()
 
 correct_states = 0
 correct_guesses = []
-states_to_learn = []
 
 while len(correct_guesses) < 50:
     answer = screen.textinput(title="Guess the State", prompt=f"{correct_states}/50 States Correct")
     answer_state = answer.title()
     if answer_state == "Exit":
-        for the_states in states["state"].to_list():
-            if the_states not in correct_guesses:
-                states_to_learn.append(the_states)
+
+        states_to_learn = [the_states for the_states in states["state"].to_list() if the_states not in correct_guesses]
+        # for the_states in states["state"].to_list():
+        #     if the_states not in correct_guesses:
+        #         states_to_learn.append(the_states)
         learning_df = pandas.DataFrame(states_to_learn)
         learning_df.to_csv("states_to_learn.csv")
         break
